@@ -95,15 +95,28 @@
   const videos = [...parede.querySelectorAll('video')];
   const parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // O mais curto dos quatro tem 16,00s e os ultimos 3 sao a assinatura
+  // "Vila Torem" (fade para branco + marca). Sobram 13s limpos, e esse
+  // e o ciclo de todos: o primeiro video comanda e reinicia o grupo,
+  // senao eles derivam por causa do arranque escalonado.
+  const CICLO = 12.8;   // o timeupdate dispara a cada ~250ms e passa um pouco
+
+  function reiniciar() {
+    videos.forEach(v => { try { v.currentTime = 0; } catch (e) {} });
+  }
+
   function ligar() {
     if (parado) return;
     videos.forEach((v, i) => {
       if (!v.src) v.src = v.dataset.src;
-      // pequeno atraso entre eles para não abrir 4 conexões de uma vez
       setTimeout(() => v.play().catch(() => {}), i * 220);
     });
   }
   function desligar() { videos.forEach(v => v.pause()); }
+
+  videos[0].addEventListener('timeupdate', () => {
+    if (videos[0].currentTime >= CICLO) reiniciar();
+  });
 
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(es => {
