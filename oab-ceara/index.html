@@ -9,7 +9,7 @@
   body { font-family: Questrial, "Segoe UI", system-ui, sans-serif; color:#fff; }
   .cena { position:relative; width:100%; height:100%; }
   video, .cartaz { position:absolute; inset:0; width:100%; height:100%;
-                    object-fit:cover; object-position:center 35%; }
+                    object-fit:cover; object-position:center 50%; }
   .veu { position:absolute; inset:0; z-index:2; pointer-events:none;
     background:
       linear-gradient(90deg, rgba(8,8,8,.9) 0%, rgba(8,8,8,.66) 36%, rgba(8,8,8,.18) 66%, rgba(8,8,8,.3) 100%),
@@ -36,10 +36,8 @@
 </div>
 
 <script>
-  // Janela escolhida a dedo: o filme completo tem legenda queimada fora
-  // deste trecho, e repetir so este pedaco tambem evita baixar o arquivo
-  // inteiro (sao dezenas de MB).
-  const INI = 0, FIM = 9;
+  // Repete os primeiros 18s: evita baixar o filme inteiro (74 MB).
+  const INI = 0, FIM = 18;
   const v = document.getElementById('v');
   const fonte = 'https://video.wixstatic.com/video/eb1557_82a4fd868d404abbbb30ce21a5365e09/720p/mp4/file.mp4';
   const parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
