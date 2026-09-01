@@ -1,0 +1,67 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Clientes</title>
+<style>
+  :root { --altura: 72px; --intervalo: 64px; --duracao: 52s; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height: 100%; background: transparent; overflow: hidden; }
+  body { display: flex; align-items: center; }
+  .faixa {
+    position: relative; width: 100%;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .trilho { display: flex; width: max-content; animation: correr var(--duracao) linear infinite; }
+  .faixa:hover .trilho { animation-play-state: paused; }
+  ul { display: flex; align-items: center; gap: var(--intervalo); padding-right: var(--intervalo); list-style: none; }
+  li { flex: 0 0 auto; }
+  img {
+    height: var(--altura); width: auto; display: block;
+    opacity: .82; transition: opacity .3s ease;
+  }
+  li:hover img { opacity: 1; }
+  @keyframes correr { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .trilho { animation: none; flex-wrap: wrap; justify-content: center; width: 100%; }
+    ul:last-child { display: none; }
+  }
+  @media (max-width: 750px) { :root { --altura: 52px; --intervalo: 40px; } }
+</style>
+<div class="faixa">
+  <div class="trilho">
+    <ul>
+      <li><img src="https://static.wixstatic.com/media/eb1557_2f8170a120d548ecb5a806cc3d1c6569~mv2.png" alt="Porsche" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_9b74043182174fc78b8886060dd47b47~mv2.png" alt="Conmebol" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_8c5c157903fb4cd8a0c3a6a2a20d8f45~mv2.png" alt="Ceará Sporting Club" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_ed098d8122d64b1d8296ff73a392f26d~mv2.png" alt="Fortaleza EC" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_553fc74a4ef94b08a5506261cd502523~mv2.png" alt="Brisanet" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_544e7f6d4dd546169b3a9aaaf14e0bde~mv2.png" alt="Ibyte" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_50f3e8c02bc1482d85dc9e63e2bbda2d~mv2.png" alt="Gocase" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_78e8dd5667314b3e86ba8b496e767d92~mv2.png" alt="OAB-CE" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_40d74ccc1d8f4762878cbade4bb30f3a~mv2.png" alt="Unimed" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_a5d3ad9d7316450a913798133cfbbe11~mv2.png" alt="Qair" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_b42c55b311224160b0b1666512fedf4c~mv2.png" alt="Granos" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_fa21c9c14aa74532a5fc27d7d5cd6c37~mv2.png" alt="AYO" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_508974bfb2cf47798b335b1e0636020c~mv2.png" alt="Casa do Pará" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_a857b03d18174c35ad01f6eae453f870~mv2.png" alt="Cajuína São Geraldo" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_055965052ca444cbadcbd4a47c11c33a~mv2.png" alt="TRES" loading="lazy"></li>
+    </ul>
+    <ul aria-hidden="true">
+      <li><img src="https://static.wixstatic.com/media/eb1557_2f8170a120d548ecb5a806cc3d1c6569~mv2.png" alt="Porsche" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_9b74043182174fc78b8886060dd47b47~mv2.png" alt="Conmebol" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_8c5c157903fb4cd8a0c3a6a2a20d8f45~mv2.png" alt="Ceará Sporting Club" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_ed098d8122d64b1d8296ff73a392f26d~mv2.png" alt="Fortaleza EC" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_553fc74a4ef94b08a5506261cd502523~mv2.png" alt="Brisanet" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_544e7f6d4dd546169b3a9aaaf14e0bde~mv2.png" alt="Ibyte" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_50f3e8c02bc1482d85dc9e63e2bbda2d~mv2.png" alt="Gocase" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_78e8dd5667314b3e86ba8b496e767d92~mv2.png" alt="OAB-CE" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_40d74ccc1d8f4762878cbade4bb30f3a~mv2.png" alt="Unimed" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_a5d3ad9d7316450a913798133cfbbe11~mv2.png" alt="Qair" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_b42c55b311224160b0b1666512fedf4c~mv2.png" alt="Granos" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_fa21c9c14aa74532a5fc27d7d5cd6c37~mv2.png" alt="AYO" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_508974bfb2cf47798b335b1e0636020c~mv2.png" alt="Casa do Pará" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_a857b03d18174c35ad01f6eae453f870~mv2.png" alt="Cajuína São Geraldo" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/eb1557_055965052ca444cbadcbd4a47c11c33a~mv2.png" alt="TRES" loading="lazy"></li>
+    </ul>
+  </div>
+</div>
