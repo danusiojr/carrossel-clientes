@@ -1,0 +1,115 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Vila Torém</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+<style>
+  :root { --tinta: #fff; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; background: #0d0d0d; overflow: hidden; }
+  body { font-family: Questrial, "Segoe UI", system-ui, sans-serif; color: var(--tinta); }
+
+  .cena { position: relative; width: 100%; height: 100%; }
+
+  /* parede de 4 verticais */
+  .parede { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .parede figure { position: relative; overflow: hidden; background: #111; }
+  .parede video, .parede img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  /* emenda suave entre os quatro */
+  .parede figure + figure::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 1px;
+    background: rgba(255,255,255,.08); z-index: 2;
+  }
+
+  /* legibilidade do texto sobre o vídeo */
+  .veu {
+    position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(8,8,8,.88) 0%, rgba(8,8,8,.62) 34%, rgba(8,8,8,.15) 62%, rgba(8,8,8,.35) 100%),
+      linear-gradient(180deg, rgba(8,8,8,.45) 0%, transparent 30%, transparent 70%, rgba(8,8,8,.5) 100%);
+  }
+
+  .texto {
+    position: relative; z-index: 4; height: 100%;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 clamp(24px, 5vw, 92px); max-width: 760px;
+  }
+  h1 {
+    font-size: clamp(40px, 7vw, 96px); font-weight: 400; line-height: .98;
+    letter-spacing: -.02em; margin-bottom: 22px;
+  }
+  p {
+    font-size: clamp(14px, 1.3vw, 19px); line-height: 1.55;
+    max-width: 34em; color: rgba(255,255,255,.86);
+  }
+  .marca {
+    margin-bottom: 14px; font-size: clamp(11px, 1vw, 13px);
+    letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.6);
+  }
+
+  @media (max-width: 900px) {
+    .parede { grid-template-columns: repeat(2, 1fr); }
+    .parede figure:nth-child(n+3) { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .parede video { display: none; }
+  }
+</style>
+
+<div class="cena">
+  <div class="parede" id="parede"></div>
+  <div class="veu"></div>
+  <div class="texto">
+    <div class="marca">Hotel · Litoral do Ceará</div>
+    <h1>Vila Torém</h1>
+    <p>Série de peças verticais para as redes do hotel — a hospedagem, a mesa e a mata que cerca tudo. Filmagem e edição pensadas para o formato de tela cheia do celular.</p>
+  </div>
+</div>
+
+<script>
+  const VIDEOS = [
+    { id: 'eb1557_704fee59c56b4195bdbd5f89e810797b', alt: 'Hóspede na varanda à noite' },
+    { id: 'eb1557_5de8174c12d240a0b86f3e3ae0b900bc', alt: 'Área externa entre a vegetação' },
+    { id: 'eb1557_39d98314e79d45868396cfb9f74b1c25', alt: 'Café da manhã servido no hotel' },
+    { id: 'eb1557_74e2384104a648edb085956353603656', alt: 'Silhueta na entrada do chalé' }
+  ];
+  const base = (id, q) => 'https://video.wixstatic.com/video/' + id + '/' + q + '/mp4/file.mp4';
+  const poster = (id) => 'https://static.wixstatic.com/media/' + id + 'f002.jpg/v1/fill/w_640,h_1138,al_c,q_80/file.jpg';
+
+  const parede = document.getElementById('parede');
+  VIDEOS.forEach(v => {
+    const fig = document.createElement('figure');
+    const el = document.createElement('video');
+    el.muted = true; el.loop = true; el.playsInline = true;
+    el.setAttribute('muted', ''); el.setAttribute('playsinline', '');
+    el.preload = 'none';                    // só baixa quando a seção aparece
+    el.poster = poster(v.id);
+    el.setAttribute('aria-label', v.alt);
+    el.dataset.src = base(v.id, '720p');
+    fig.appendChild(el);
+    parede.appendChild(fig);
+  });
+
+  const videos = [...parede.querySelectorAll('video')];
+  const parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function ligar() {
+    if (parado) return;
+    videos.forEach((v, i) => {
+      if (!v.src) v.src = v.dataset.src;
+      // pequeno atraso entre eles para não abrir 4 conexões de uma vez
+      setTimeout(() => v.play().catch(() => {}), i * 220);
+    });
+  }
+  function desligar() { videos.forEach(v => v.pause()); }
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(es => {
+      es.forEach(e => e.isIntersecting ? ligar() : desligar());
+    }, { threshold: 0.15 }).observe(document.body);
+  } else {
+    ligar();
+  }
+</script>
